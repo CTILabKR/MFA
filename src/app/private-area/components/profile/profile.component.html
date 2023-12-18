@@ -1,0 +1,151 @@
+<div fxLayout="row" style="margin-top: 25px">
+  <div fxFlex="40" fxFlexOffset="30" class="mat-elevation-z8">
+    <div class="row">
+      <div class="custom-header">Profile information</div>
+    </div>
+    <div class="row">
+      <!--Profile avatar-->
+      <div fxFlex="30">
+        <img src="assets/images/avatar.png" class="profile-avatar">
+      </div>
+
+      <!--Profile information-->
+      <div fxFlex="65" style="margin-top: 20px">
+        <div fxLayout="column">
+          <div fxFlex="100">
+
+            <mat-form-field fxFlex="40">
+              <input matInput placeholder="First name" [disabled]="true" [(ngModel)]="userInformation.firstName">
+            </mat-form-field>
+
+            <mat-form-field fxFlex="40" fxFlexOffset="10">
+              <input matInput placeholder="Last name" [disabled]="true" [(ngModel)]="userInformation.lastName">
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="100">
+            <mat-form-field fxFlex="40">
+              <input matInput placeholder="Username" [disabled]="true" [(ngModel)]="userInformation.username">
+            </mat-form-field>
+
+            <mat-form-field fxFlex="40" fxFlexOffset="10">
+              <input matInput placeholder="Email" [disabled]="true" [(ngModel)]="userInformation.email">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--2 Two Factor Authentication-->
+<div fxLayout="row" style="margin-top: 25px">
+  <div fxFlex="40" fxFlexOffset="30" class="mat-elevation-z8">
+    <div class="row">
+      <div class="custom-header">Two Factor Authentication</div>
+    </div>
+    <mat-accordion class="example-headers-align">
+      <!--App authenticator-->
+      <mat-expansion-panel hideToggle="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Backup codes
+          </mat-panel-title>
+          <mat-panel-description>
+            Two factor authentication with backup codes
+            <mat-icon>android</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <span>Enable two factor authentication</span>
+          <mat-slide-toggle [checked]="userInformation.twoFactorAuthenticationActive"
+                            (change)="toggleTwoFactorAuthentication()">
+          </mat-slide-toggle>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="margin-top-10">
+          <span>Generate new back codes</span>
+          <button mat-raised-button color="primary" (click)="generateBackupCodes()">
+            Generate
+          </button>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="margin-top-10">
+          <span>Display backup codes</span>
+          <button mat-raised-button color="primary" (click)="openBackCodeDialog()">
+            Show
+          </button>
+        </div>
+
+      </mat-expansion-panel>
+
+      <mat-expansion-panel hideToggle="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Secret question
+          </mat-panel-title>
+          <mat-panel-description>
+            Knowledge-based authentication
+            <mat-icon>help outline</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        Backup codes here
+
+      </mat-expansion-panel>
+
+      <!-- Text message codes-->
+      <mat-expansion-panel hideToggle="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Mobile phone
+          </mat-panel-title>
+          <mat-panel-description>
+            Add phone number for sms verification
+            <mat-icon>perm_phone_msg</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-horizontal-stepper [linear]="isLinear">
+          <mat-step [stepControl]="firstFormGroup">
+            <form [formGroup]="firstFormGroup">
+              <ng-template matStepLabel>Verify password</ng-template>
+              <mat-form-field>
+                <input matInput placeholder="Password" formControlName="firstCtrl" required>
+              </mat-form-field>
+              <div>
+                <button mat-raised-button color="primary" matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+
+          <mat-step [stepControl]="secondFormGroup">
+            <form [formGroup]="secondFormGroup">
+              <ng-template matStepLabel>Mobile number</ng-template>
+              <mat-form-field>
+                <input matInput placeholder="Token" formControlName="secondCtrl" required>
+              </mat-form-field>
+              <div>
+                <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+
+          <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            You have enabled SMS two factor authentication!
+          </mat-step>
+        </mat-horizontal-stepper>
+
+      </mat-expansion-panel>
+      <!--Secret question-->
+
+
+    </mat-accordion>
+  </div>
+</div>
+
+
+

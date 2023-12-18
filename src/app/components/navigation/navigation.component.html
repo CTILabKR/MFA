@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+
+  <span style="color: #ffffff; font-weight: bold">Multi-factor authentication</span>
+
+  <span class="example-spacer"></span>
+
+  <a [routerLink]="['/home']" class="custom-link">Home</a>
+  <a [routerLink]="['/contact']" class="custom-link">Contact</a>
+  <a [routerLink]="['/forum']" class="custom-link">Forum</a>
+  <a *ngIf="authService.isLoggedIn()" [routerLink]="['/profile']" class="custom-link">Profile</a>
+  <a *ngIf="!authService.isLoggedIn()" [routerLink]="['/login']" class="custom-link">Login</a>
+  <a *ngIf="!authService.isLoggedIn()" [routerLink]="['/signup']" class="custom-link">Signup</a>
+  <a *ngIf="authService.isLoggedIn()" (click)="authService.logout()" class="custom-link">Logout</a>
+
+</mat-toolbar>
+
+
+
